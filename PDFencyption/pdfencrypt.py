@@ -1,5 +1,5 @@
 import PyPDF2
-
+import securepassword
 def pdfEncrypt(pdfFile):
     file = open(pdfFile, 'rb')
     reader = PyPDF2.PdfReader(file)
@@ -9,7 +9,9 @@ def pdfEncrypt(pdfFile):
         writer.add_page(reader.pages[page_number])
 
     #add password
-    writer.encrypt('Password')
+    password = securepassword.get_secure_password("Enter your password: ")
+    print("You entered:", password)
+    writer.encrypt(password)
 
     #Secured.pdf is the name of the encrpted pdf file
     encryptedPdf = open('Secured.pdf', 'wb')   
